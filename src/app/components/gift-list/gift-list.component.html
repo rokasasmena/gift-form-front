@@ -1,0 +1,11 @@
+<form (ngSubmit)="addGift()" #giftForm="ngForm">
+    <div>
+      <label for="giftName">Gift Name:</label>
+      <input type="text" name="giftName" [(ngModel)]="newGift.giftName" required>
+    </div>
+    <div>
+      <label for="giftPrice">Gift Price:</label>
+      <input type="number" name="giftPrice" [(ngModel)]="newGift.giftPrice" required>
+    </div>
+    <button type="submit">Add Gift</button>
+  </form>
