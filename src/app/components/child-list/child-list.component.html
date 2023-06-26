@@ -1,13 +1,7 @@
-<h2>Children</h2>
+<h2>Vaikų dalis</h2>
 <ul>
   <li *ngFor="let child of children" (click)="selectChild(child)">
     {{ child.firstName }} {{ child.lastName }}
   </li>
 </ul>
 <br>
-<h2>Gifts</h2>
-<ul>
-  <li *ngFor="let gift of selectedChild.gifts">
-    {{ gift.name }}
-  </li>
-</ul>

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DataService } from '../../services/data.service';
+import { Observer } from 'rxjs';
 
 @Component({
   selector: 'app-child-list',
@@ -12,48 +13,27 @@ export class ChildListComponent implements OnInit {
   selectedChild: any = {};
   newChild: any = {};
 
+  @Output() childSelected = new EventEmitter<any>();
+
   constructor(private http: HttpClient, private dataService: DataService) {}
 
   ngOnInit() {
     this.getChildren();
   }
 
-  // Update the base URL of the API
-  private apiBaseUrl = 'http://localhost:5000/api';
-  
-
   getChildren() {
-    const url = `${this.apiBaseUrl}/children`;
-    console.log('apiBaseUrl: ', url);
-
-    return this.http.get(url);
-  }
-
-  addChild() {
-    this.dataService.addChild(this.newChild).subscribe(
-      (response) => {
-        console.log(response);
-        this.newChild = {};
+    this.dataService.getChildren().subscribe({
+      next: (response: any) => {
+        this.children = response.children;
       },
-      (error) => {
-        console.log(error);
+      error: (error: any) => {
+        console.error(error);
       }
-    );
+    });
   }
 
   selectChild(child: any) {
     this.selectedChild = child;
-    this.getGiftsByChildId(child.id);
-  }
-
-  getGiftsByChildId(childId: number) {
-    this.dataService.getGiftsByChildId(childId).subscribe(
-      (data: any) => {
-        this.selectedChild.gifts = data;
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    this.childSelected.emit(child);
   }
 }

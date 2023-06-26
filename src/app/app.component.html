@@ -1,3 +1,10 @@
-<app-child-list></app-child-list>
-
-<app-gift-list></app-gift-list>
+<div class="container">
+    <div class="row">
+      <div class="col">
+        <app-child-list (childSelected)="selectChild($event)"></app-child-list>
+      </div>
+      <div class="col">
+        <app-gift-list [selectedChild]="selectedChild"></app-gift-list>
+      </div>
+    </div>
+  </div>

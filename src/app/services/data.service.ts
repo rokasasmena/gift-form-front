@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class DataService {
-  private apiUrl = 'http://localhost:5000/api';
+  private apiUrl = 'https://localhost:44308';
 
   constructor(private http: HttpClient) {}
 
@@ -14,7 +14,7 @@ export class DataService {
   }
 
   getGiftsByChildId(childId: number) {
-    return this.http.get(`${this.apiUrl}/children/${childId}/gifts`);
+    return this.http.get(`${this.apiUrl}/children/${childId}/gift`);
   }
 
   addChild(child: any) {
@@ -22,6 +22,6 @@ export class DataService {
   }
 
   addGift(gift: any) {
-    return this.http.post(`${this.apiUrl}/gifts`, gift);
+    return this.http.post(`${this.apiUrl}/gift`, gift);
   }
 }

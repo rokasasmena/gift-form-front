@@ -1,27 +1,23 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
-
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { GiftFormComponent } from './components/gift-form/gift-form.component';
 import { ChildListComponent } from './components/child-list/child-list.component';
 import { GiftListComponent } from './components/gift-list/gift-list.component';
-
-import { HttpClientModule } from '@angular/common/http';
-
-
 
 @NgModule({
   declarations: [
     AppComponent,
+    GiftFormComponent,
     ChildListComponent,
     GiftListComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
