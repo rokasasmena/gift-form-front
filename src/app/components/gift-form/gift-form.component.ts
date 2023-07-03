@@ -8,7 +8,9 @@ import { Component } from '@angular/core';
 export class GiftFormComponent {
   selectedChild: any;
 
-  selectChild(child: any) {
-    this.selectedChild = child;
+  onChildSelected(event: { child: any, index: number }) {
+    // Handle the selected child event in the GiftFormComponent
+    console.log('Selected child:', event.child);
+    console.log('Selected child index:', event.index);
   }
 }

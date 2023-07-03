@@ -1,0 +1,34 @@
+.gift-table {
+    width: 500px;
+    border-collapse: collapse;
+    border: 1px solid #000;
+    overflow-y: scroll;
+    max-height: 192px;
+  }
+  
+  .gift-table td.gift-table-data {
+    width: 100%;
+    text-align: center;
+    padding: 8px;
+    border: 1px solid #000;
+  }
+  
+  .gift-table-width {
+    width: 100%;
+  }
+  
+  .gift-table tr.blink {
+    animation: blink-animation 1s linear;
+  }
+
+@keyframes blink-animation {
+  0% {
+    background-color: rgba(27, 254, 69, 0.5);
+  }
+  50% {
+    background-color: rgba(121, 245, 144, 0.5);
+  }
+  100% {
+    background-color: rgba(215, 253, 222, 0.5);
+  }
+}

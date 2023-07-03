@@ -1,7 +1,6 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { DataService } from '../../services/data.service';
-import { Observer } from 'rxjs';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-child-list',
@@ -9,13 +8,15 @@ import { Observer } from 'rxjs';
   styleUrls: ['./child-list.component.scss']
 })
 export class ChildListComponent implements OnInit {
+  @Input() selectedChild: any;
+  @Output() childSelected: EventEmitter<{ child: any; index: number }> = new EventEmitter<{ child: any; index: number }>();
+  newChildIndex: number | null = null;
   children: any[] = [];
-  selectedChild: any = {};
-  newChild: any = {};
+  newChild: any = { name: '', lastName: '' };
+  showNewChildForm: boolean = false;
+  selectedChildIndex: number = -1;
 
-  @Output() childSelected = new EventEmitter<any>();
-
-  constructor(private http: HttpClient, private dataService: DataService) {}
+  constructor(private dataService: DataService, private changeDetectorRef: ChangeDetectorRef) {}
 
   ngOnInit() {
     this.getChildren();
@@ -24,7 +25,8 @@ export class ChildListComponent implements OnInit {
   getChildren() {
     this.dataService.getChildren().subscribe({
       next: (response: any) => {
-        this.children = response.children;
+        console.log("API Response: ", response);
+        this.children = response.map((child: any) => ({ ...child, isEditing: false }));
       },
       error: (error: any) => {
         console.error(error);
@@ -32,8 +34,50 @@ export class ChildListComponent implements OnInit {
     });
   }
 
-  selectChild(child: any) {
+  toggleEditMode(child: any) {
+    child.isEditing = !child.isEditing;
+  }
+
+  saveChild(child: any) {
+    console.log("Updated child:", child);
+    child.isEditing = false;
+  }
+
+  cancelEdit(child: any) {
+    child.isEditing = false;
+  }
+
+  showForm() {
+    this.showNewChildForm = true;
+  }
+
+  addNewChild() {
+    const { name, lastName } = this.newChild;
+    const newChild = { name, lastName, isEditing: false };
+  
+    this.children.unshift(newChild);
+    this.newChildIndex = 0;
+    this.resetForm();
+  
+    setTimeout(() => {
+      this.newChildIndex = null;
+      this.changeDetectorRef.detectChanges();
+    }, 1000);
+  
+    console.log("Updated children array:", this.children);
+  }
+
+  selectChild(childIndex: { child: any, index: number }) {
+    const { child, index } = childIndex;
     this.selectedChild = child;
-    this.childSelected.emit(child);
+    this.selectedChildIndex = index;
+    if (child) {
+      this.childSelected.emit({ child, index });
+    }
+  }
+
+  resetForm() {
+    this.newChild = { name: '', lastName: '' };
+    this.showNewChildForm = false;
   }
 }

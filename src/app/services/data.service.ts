@@ -14,7 +14,7 @@ export class DataService {
   }
 
   getGiftsByChildId(childId: number) {
-    return this.http.get(`${this.apiUrl}/children/${childId}/gift`);
+    return this.http.get(`${this.apiUrl}/gift?childId=${childId}`);
   }
 
   addChild(child: any) {

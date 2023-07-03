@@ -8,7 +8,8 @@ import { Component } from '@angular/core';
 export class AppComponent {
   selectedChild: any;
 
-  selectChild(child: any) {
-    this.selectedChild = child;
+  onChildSelected(event: { child: any, index: number }) {
+    this.selectedChild = event.child;
+    console.log('Selected child:', this.selectedChild);
   }
 }
