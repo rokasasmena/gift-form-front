@@ -1,59 +1,58 @@
-<div class="gift-table-container">
-  <h2>Gift list</h2>
-  <div *ngIf="selectedChild" class="table-width">
-    <h3>{{ selectedChild.name }}'s Gift List</h3>
-      <div class="gift-table">
-        <table class="child-table-width"> <!-- Apply the same class as the child list table -->
-          <tbody>
-            <tr *ngFor="let gift of gifts; let i = index" [class.blink]="i === newGiftIndex">
-              <td class="gift-table-data">
-                <ng-container *ngIf="!gift.isEditing; else editMode">
-                  {{ gift.name }}
-                </ng-container>
-                <ng-template #editMode>
-                  <mat-form-field appearance="fill">
-                    <mat-label>Gift Name</mat-label>
-                    <input matInput [(ngModel)]="gift.name" placeholder="Gift Name">
-                  </mat-form-field>
-                </ng-template>
-              </td>
-              <td>
-                <ng-container *ngIf="!gift.isEditing; else editButtons">
-                  <div class="edit-icon-container">
-                    <button mat-icon-button (click)="toggleEditMode(gift)">
-                      <mat-icon>edit</mat-icon>
-                    </button>
-                  </div>
-                </ng-container>
-                <ng-template #editButtons>
-                  <div class="edit-buttons-container">
-                    <button mat-icon-button (click)="saveGift(gift)">
-                      <mat-icon>done</mat-icon>
-                    </button>
-                    <button mat-icon-button (click)="cancelEdit(gift)">
-                      <mat-icon>clear</mat-icon>
-                    </button>
-                  </div>
-                </ng-template>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="button-section">
-        <button mat-raised-button color="primary" (click)="showForm()">Add New Gift</button>
-  
-       <div *ngIf="showNewGiftForm" class="add-new-gift">
-          <mat-form-field appearance="fill">
-            <mat-label>Gift Name</mat-label>
-            <input matInput [(ngModel)]="newGift.name" placeholder="Gift Name">
-          </mat-form-field>
-          <button mat-raised-button color="primary" (click)="addNewGift()" class="approve-button">OK</button>
-        </div>
-      </div>
-    </div>
+<h2>Dovanų dalis</h2>
 
-    <div *ngIf="!selectedChild">
-      <p>No child selected.</p>
-    </div>
+<div *ngIf="selectedChild">
+  <h3>{{ selectedChild.name }}'s Gift List</h3>
+  <div class="gift-table">
+    <table class="gift-table-width">
+      <tbody>
+        <tr *ngFor="let gift of gifts; let i = index" [class.blink]="i === newGiftIndex">
+          <td class="gift-table-data">
+            <ng-container *ngIf="!gift.isEditing; else editMode">
+              {{ gift.name }}
+            </ng-container>
+            <ng-template #editMode>
+              <mat-form-field appearance="fill">
+                <mat-label>Gift Name</mat-label>
+                <input matInput [(ngModel)]="gift.name" placeholder="Gift Name">
+              </mat-form-field>
+            </ng-template>
+          </td>
+          <td>
+            <ng-container *ngIf="!gift.isEditing; else editButtons">
+              <div class="edit-icon-container">
+                <button mat-icon-button (click)="toggleEditMode(gift)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+              </div>
+            </ng-container>
+            <ng-template #editButtons>
+              <div class="edit-buttons-container">
+                <button mat-icon-button (click)="saveGift(gift)">
+                  <mat-icon>done</mat-icon>
+                </button>
+                <button mat-icon-button (click)="cancelEdit(gift)">
+                  <mat-icon>clear</mat-icon>
+                </button>
+              </div>
+            </ng-template>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div *ngIf="!selectedChild">
+  <p>No child selected.</p>
+</div>
+
+<div>
+  <button mat-raised-button color="primary" (click)="showForm()">Add New Gift</button>
+  <div *ngIf="showNewGiftForm">
+    <mat-form-field appearance="fill">
+      <mat-label>Gift Name</mat-label>
+      <input matInput [(ngModel)]="newGift.name" placeholder="Gift Name">
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="addNewGift()">OK</button>
+  </div>
 </div>
