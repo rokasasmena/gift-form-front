@@ -1,0 +1,76 @@
+<div class="table-container">
+  <h2>Child list</h2>
+  <div class="child-table">
+    <table mat-table [dataSource]="dataSource" class="child-table-width">
+      <ng-container matColumnDef="name">
+        <td mat-cell *matCellDef="let child; let i = index">
+          <ng-container *ngIf="!child.isEditing; else editMode">
+            {{ child.name }}
+          </ng-container>
+          <ng-template #editMode>
+            <mat-form-field appearance="fill">
+              <mat-label>Name</mat-label>
+              <input matInput [(ngModel)]="child.name" placeholder="Name">
+            </mat-form-field>
+          </ng-template>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="lastName">
+        <td mat-cell *matCellDef="let child; let i = index">
+          <ng-container *ngIf="!child.isEditing; else editLastName">
+            {{ child.lastName }}
+          </ng-container>
+          <ng-template #editLastName>
+            <mat-form-field appearance="fill">
+              <mat-label>Last Name</mat-label>
+              <input matInput [(ngModel)]="child.lastName" placeholder="Last Name">
+            </mat-form-field>
+          </ng-template>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <td mat-cell *matCellDef="let child; let i = index">
+          <ng-container *ngIf="!child.isEditing; else editButtons">
+            <div class="edit-icon-container">
+              <button mat-icon-button (click)="toggleEditMode(child)">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </div>
+          </ng-container>
+          <ng-template #editButtons>
+            <div class="edit-buttons-container">
+              <button mat-icon-button (click)="saveChild(child)">
+                <mat-icon>done</mat-icon>
+              </button>
+              <button mat-icon-button (click)="cancelEdit(child)">
+                <mat-icon>clear</mat-icon>
+              </button>
+            </div>
+          </ng-template>
+        </td>
+      </ng-container>
+
+      <tr mat-row *matRowDef="let row; columns: ['name', 'lastName', 'actions']; let i = index"
+        (click)="selectChild({ child: row, index: i })"
+        [class.selected]="i === selectedChildIndex"
+        [class.blink]="i === newChildIndex || (newChildIndex === 0 && i === 0)"
+        [class.edit-mode]="row.isEditing">
+      </tr>
+    </table>
+  </div>
+
+  <button mat-raised-button color="primary" (click)="showForm()" class="add-new-child">Add New Child</button>
+  <div *ngIf="showNewChildForm" class="new-child-inputs">
+    <mat-form-field class="input-new-fields">
+      <mat-label>Name</mat-label>
+      <input matInput [(ngModel)]="newChild.name" placeholder="Name">
+    </mat-form-field>
+    <mat-form-field class="input-new-fields">
+      <mat-label>Last Name</mat-label>
+      <input matInput [(ngModel)]="newChild.lastName" placeholder="Last Name">
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="addNewChild()">OK</button>
+  </div>
+</div>

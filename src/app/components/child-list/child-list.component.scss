@@ -1,0 +1,77 @@
+.table-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.child-table {
+  width: 60%;
+  border-collapse: collapse;
+  border: 1px solid #000;
+  overflow-y: scroll;
+  max-height: 592px;
+  margin-top: 20px;
+}
+
+.child-table td {
+  width: 33.33%; /* Each td takes one-third of the table width */
+  padding: 8px;
+}
+
+.child-table-width {
+  width: 100%;
+} 
+
+.child-table tr.blink {
+  animation: blink-animation 1s linear;
+}
+
+@keyframes blink-animation {
+  0% {
+    background-color: rgba(27, 254, 69, 0.5);
+  }
+  50% {
+    background-color: rgba(121, 245, 144, 0.5);
+  }
+  100% {
+    background-color: rgba(215, 253, 222, 0.5);
+  }
+}
+
+.child-table tr {
+  height: 79px;
+}
+
+.child-table tr.blink {
+  animation: blink-animation 1s linear;
+  height: 56px;
+}
+
+.child-table tr.edit-mode {
+  height: 79px;
+}
+
+.edit-icon-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.edit-buttons-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+::ng-deep .mat-mdc-form-field-subscript-wrapper {
+  display: none;
+}
+
+.add-new-child, .new-child-inputs {
+  margin-top: 15px;
+}
+
+.input-new-fields {
+  margin-right: 15px;
+}
+
+
