@@ -79,6 +79,7 @@ export class ChildListComponent implements OnInit {
         this.children$.next(updatedData);
         this.resetForm();
         this.selectedChild = response;
+        this.newChildIndex = 0;
       },
       error: (error: any) => {
         console.error('Failed to add new child:', error);
