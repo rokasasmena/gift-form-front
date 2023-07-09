@@ -12,11 +12,11 @@ export class DataService {
 
   private giftsUpdated = new BehaviorSubject<Gift[]>([]);
 
-getGiftsUpdated(): Observable<Gift[]> {
-  return this.giftsUpdated.asObservable();
-}
-
   constructor(private http: HttpClient) {}
+
+  getGiftsUpdated(): Observable<Gift[]> {
+    return this.giftsUpdated.asObservable();
+  }
 
   getChildren() {
     return this.http.get(`${this.apiUrl}/children`).pipe(

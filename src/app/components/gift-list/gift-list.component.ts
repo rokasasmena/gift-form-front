@@ -21,7 +21,6 @@ ngOnInit() {
   this.dataService.getGiftsUpdated().subscribe((gifts) => {
     this.selectedChild.gifts = gifts;
   });
-
 }
   
   ngOnChanges() {
