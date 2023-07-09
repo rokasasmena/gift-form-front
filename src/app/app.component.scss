@@ -1,0 +1,37 @@
+.main-container {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url('../assets/images/snowflake.svg');
+    background-repeat: space;
+    background-size: cover;
+    background-position: center;
+    animation: repeatBackground 35s linear infinite;
+    height: 100vh;
+    overflow: auto;
+  }
+  
+  @keyframes repeatBackground {
+    0% {
+      background-position: center bottom;
+    }
+    50% {
+      background-position: center top;
+    }
+    100% {
+      background-position: center bottom;
+    }
+  }
+  
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 0 40px;
+  }
+
+  .heading {
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center;
+  }

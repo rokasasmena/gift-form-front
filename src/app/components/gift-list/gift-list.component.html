@@ -1,0 +1,70 @@
+<div class="gift-table-container">
+  <h2>Gift list</h2>
+  <ng-container *ngIf="selectedChild && selectedChild.name; else noChildSelected">
+    <h3 class="gift-list-name">{{ selectedChild.name }}'s Gift List Selected</h3>
+    <div class="table-width">
+      <table class="gift-table">
+        <tbody>
+          <ng-container *ngIf="selectedChild && selectedChild.gifts && selectedChild.gifts.length > 0; else noGifts">
+            <tr *ngFor="let gift of selectedChild.gifts">
+              <td class="gift-table-data">
+                <ng-container *ngIf="!gift.isEditing; else editMode">
+                  {{ gift.name }}
+                </ng-container>
+                <ng-template #editMode>
+                  <mat-form-field appearance="fill">
+                    <mat-label>Gift Name</mat-label>
+                    <input matInput [(ngModel)]="gift.name" placeholder="Gift Name">
+                  </mat-form-field>
+                </ng-template>
+              </td>
+              <td>
+                <ng-container *ngIf="!gift.isEditing; else editButtons">
+                  <div class="edit-delete-container">
+                    <button mat-icon-button (click)="toggleEditMode(gift)" color="primary">
+                      <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-icon-button (click)="deleteGift(gift.id)" color="warn">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </div>
+                </ng-container>
+                <ng-template #editButtons>
+                  <div class="edit-buttons-container">
+                    <button mat-icon-button (click)="saveGift(gift)" color="primary">
+                      <mat-icon>done</mat-icon>
+                    </button>
+                    <button mat-icon-button (click)="cancelEdit(gift)" color="warn">
+                      <mat-icon>clear</mat-icon>
+                    </button>
+                  </div>
+                </ng-template>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+        <div class="button-section">
+          <button mat-raised-button color="primary" (click)="showForm()">Add New Gift</button>
+            <div *ngIf="showNewGiftForm" class="add-new-gift">
+              <mat-form-field appearance="fill">
+                <mat-label>Gift Name</mat-label>
+                <input matInput [(ngModel)]="newGift.name" placeholder="Gift Name">
+              </mat-form-field>
+              <button mat-raised-button color="primary" (click)="addNewGift()" class="approve-button">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <ng-template #noGifts>
+      <p class="no-gift-found">No gifts found for the selected child.</p>
+    </ng-template>
+  </ng-container>
+
+<ng-template #noChildSelected>
+  <div class="no-child-container">
+    <p class="no-child-text">Please select the child</p>
+    <mat-icon class="exclamation-icon">error</mat-icon>
+  </div>
+</ng-template>
+</div>
